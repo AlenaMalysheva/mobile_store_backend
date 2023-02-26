@@ -4,6 +4,7 @@ import { mobilesList } from "../data/mobilesList.js";
 const router = Router();
 
 router.get('/',(req, resp) => {
+    resp.cookie('visited',true , {maxAge: 15000})
     const { id } = req.query;
     const parsedId = parseInt(id) // преобразовать к числу,если число в начале строки
     if(!isNaN(parsedId)){ // если есть параметр и он не nan
@@ -15,6 +16,7 @@ router.get('/',(req, resp) => {
 })
 
 router.get('/:id', (req, resp) => {
+    console.log(req.cookies)
    const {id} = req.params;
    const mobileItem = mobilesList.find(mobileItem => mobileItem.id === +id)
     resp.send(mobileItem)
