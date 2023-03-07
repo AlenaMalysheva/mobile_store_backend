@@ -3,6 +3,11 @@ import { mobilesList } from "../data/mobilesList.js";
 
 const router = Router();
 
+router.use((req, resp, next) => { // проверка если user cуществует то пропускаем к запросу если нет то нет
+    if(req.session.user) next()
+    else resp.send(401)
+})
+
 router.get('/',(req, resp) => {
     resp.cookie('visited',true , {maxAge: 15000})
     const { id } = req.query;
